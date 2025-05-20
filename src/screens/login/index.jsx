@@ -1,95 +1,87 @@
-import { Pressable, Text, View } from "react-native";
-
-import React from "react";
+import { Text, View, TouchableHighlight } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
+import { styles } from "./styles";
+import { useForm, Controller } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-export default function Login({navigation}) {
+const validationSchema = yup.object({
+    email: yup.string().email().required(),
+    password: yup.string().min(8).required()
+}).required();
+
+export default function Login({ navigation }) {
+    const { control,handleSubmit, formState: {errors} } = useForm({
+        resolver: yupResolver(validationSchema),
+        defaultValues: {
+            email: '',
+            password: ''
+        }
+    })
+
+    const onSubmit = () => {
+        navigation.navigate("Drawer")
+    }
+
     return (
         <SafeAreaProvider style={styles.mainContainer}>
             <View style={styles.loginContainer}>
                 <View style={styles.loginForm}>
                     <Text style={styles.title}>Welcome!</Text>
-                    <TextInput
-                        label={"Email"}
-                        placeholder="E-Mail"
-                        outlineColor="white"
-                        textColor="black"
-                        style={{ backgroundColor: '#fff' }}
+
+                    <Controller
+                        name="email"
+                        control={control}
+                        render={({ field: { onChange, value } }) => (
+                            <TextInput
+                                label={"Email"}
+                                placeholder="E-Mail"
+                                outlineColor="white"
+                                textColor="black"
+                                onChangeText={onChange}
+                                value={value}
+                                style={{ backgroundColor: '#fff' }}
+                            />
+                        )}
                     />
-                    <TextInput
-                        label={"Passoword"}
-                        placeholder="Password"
-                        secureTextEntry={true}
-                        outlineColor="white"
-                        textColor="black"
-                        style={{ backgroundColor: '#fff' }}
+                    {errors.email && <Text>Invalid Email</Text>}
+
+                    <Controller
+                        name="password"
+                        control={control}
+                        render={({ field: { onChange, value } }) => (
+                            <TextInput
+                                label={"Password"}
+                                placeholder="Password"
+                                secureTextEntry={true}
+                                outlineColor="white"
+                                textColor="black"
+                                value={value}
+                                onChangeText={onChange}
+                                style={{ backgroundColor: '#fff' }}
+                            />
+                        )}
                     />
-                    <Pressable style={styles.buttonArea} onPress={() => navigation.navigate("Home")}>
-                        <Text style={styles.buttonText}>Login</Text>
-                    </Pressable>
-                    <Pressable style={styles.forgotArea}>
+                    {errors.password && <Text>Invalid Password</Text>}
+
+                    <TouchableHighlight  style={styles.buttonArea} onPress={handleSubmit(onSubmit)}>
+                        <Text style={styles.buttonText}>Sign in</Text>
+                    </TouchableHighlight>
+
+                    <TouchableHighlight style={styles.forgotArea}>
                         <Text style={styles.forgotText}>Forgot your password?</Text>
-                    </Pressable>
+                    </TouchableHighlight>
+
                 </View>
             </View>
+
             <View style={styles.signUpContainer}>
                 <Text onPress={() => navigation.navigate("Register")} style={styles.signUpText}>
                     Sign Up
                 </Text>
             </View>
+
         </SafeAreaProvider>
     )
 }
-
-const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        backgroundColor: 'white'
-    },
-    loginContainer: {
-        flex: 0.80,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    loginForm: {
-        color: 'black',
-        height: 200,
-        width: 300,
-        gap: 20
-    },
-    title: {
-        fontSize: 46,
-        color: 'black',
-        fontWeight: 700
-    },
-    buttonArea: {
-        backgroundColor: "#293333",
-        height: 50,
-        borderRadius: 20,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 18
-    },
-    forgotArea: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    forgotText: {
-        fontSize: 16,
-        color: "#161616",
-        textDecorationLine: "underline"
-    },
-    signUpContainer: {
-        flex: 0.20,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    signUpText: {
-        fontSize: 26
-    }
-})

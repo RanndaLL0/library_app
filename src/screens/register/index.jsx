@@ -1,95 +1,115 @@
-import { Pressable, Text, View } from "react-native";
-
-import React from "react";
+import { Text, View, TouchableHighlight } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { StyleSheet } from "react-native";
+import { styles } from "./styles";
 import { TextInput } from "react-native-paper";
+import { useForm, Controller } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-export default function Register({navigation}) {
+const validationSchema = yup.object({
+    email: yup.string().email().required(),
+    userName: yup.string().required(),
+    password: yup.string().min(8).required(),
+    confirmPassword: yup.string().oneOf([yup.ref('passoword'), null])
+}).required();
+
+export default function Register({ navigation }) {
+    const { control, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(validationSchema),
+        defaultValues: {
+            email: '',
+            userName: '',
+            password: '',
+            confirmPassword: ''
+        }
+    })
+
+    const onSubmit = (data) => {
+        alert('haha')
+    }
+
     return (
         <SafeAreaProvider style={styles.mainContainer}>
             <View style={styles.loginContainer}>
                 <View style={styles.loginForm}>
                     <Text style={styles.title}>Register</Text>
-                    <TextInput
-                        label={"Email"}
-                        placeholder="E-Mail"
-                        outlineColor="white"
-                        textColor="black"
-                        style={{ backgroundColor: '#fff' }}
+
+                    <Controller
+                        name="email"
+                        control={control}
+                        render={({ field: { onChange, value } }) => (
+                            <TextInput
+                                label={"Email"}
+                                placeholder="E-Mail"
+                                outlineColor="white"
+                                textColor="black"
+                                style={{ backgroundColor: '#fff' }}
+                                value={value}
+                                onChangeText={onChange}
+                            />
+                        )}
                     />
-                    <TextInput
-                        label={"Password"}
-                        placeholder="Password"
-                        secureTextEntry={true}
-                        outlineColor="white"
-                        textColor="black"
-                        style={{ backgroundColor: '#fff' }}
+                    {errors.email && <Text>Invalid Email</Text>}
+
+                    <Controller
+                        name="userName"
+                        control={control}
+                        render={({ field: { onChange, value } }) => (
+                            <TextInput
+                                label={"Username"}
+                                placeholder="Username"
+                                outlineColor="white"
+                                textColor="black"
+                                style={{ backgroundColor: '#fff' }}
+                                value={value}
+                                onChangeText={onChange}
+                            />
+                        )}
                     />
-                    <TextInput
-                        label={"Confirm Password"}
-                        placeholder="Confirm Password"
-                        secureTextEntry={true}
-                        outlineColor="white"
-                        textColor="black"
-                        style={{ backgroundColor: '#fff' }}
+                    {errors.userName && <Text>Invalid Password</Text>}
+
+                    <Controller
+                        name="password"
+                        control={control}
+                        render={({ field: { onChange, value } }) => (
+                            <TextInput
+                                label={"Password"}
+                                placeholder="Password"
+                                outlineColor="white"
+                                textColor="black"
+                                style={{ backgroundColor: '#fff' }}
+                                value={value}
+                                onChangeText={onChange}
+                                secureTextEntry={true}
+                            />
+                        )}
                     />
-                    <Pressable style={styles.buttonArea}>
+                    {errors.password && <Text>Invalid Password</Text>}
+
+                    <Controller
+                        name="confirmPassword"
+                        control={control}
+                        render={({ field: { onChange, value } }) => (
+                            <TextInput
+                                label={"Confirm Password"}
+                                placeholder="Password"
+                                outlineColor="white"
+                                textColor="black"
+                                style={{ backgroundColor: '#fff' }}
+                                value={value}
+                                onChangeText={onChange}
+                                secureTextEntry={true}
+                            />
+                        )}
+                    />
+                    {errors.password && <Text>Password must match</Text>}
+
+                    <TouchableHighlight onPress={handleSubmit(onSubmit)} style={styles.buttonArea}>
                         <Text style={styles.buttonText}>Register</Text>
-                    </Pressable>
+                    </TouchableHighlight>
+
                 </View>
             </View>
         </SafeAreaProvider>
     )
 }
-
-const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        backgroundColor: 'white'
-    },
-    loginContainer: {
-        flex: 0.70,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    loginForm: {
-        color: 'black',
-        height: 200,
-        width: 300,
-        gap: 20
-    },
-    title: {
-        fontSize: 46,
-        color: 'black',
-        fontWeight: 700
-    },
-    buttonArea: {
-        backgroundColor: "#293333",
-        height: 50,
-        borderRadius: 20,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 18
-    },
-    forgotArea: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    forgotText: {
-        fontSize: 16,
-        color: "#161616",
-        textDecorationLine: "underline"
-    },
-    signUpContainer: {
-        flex: 0.20,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    signUpText: {
-        fontSize: 26
-    }
-})
