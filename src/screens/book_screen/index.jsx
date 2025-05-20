@@ -1,13 +1,15 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet, View, ImageBackground, Text } from "react-native";
-import CategorieTag from "../../components/categorie_tag";
-import { Star } from "lucide-react-native"
-import CartButton from "../../components/cart_button";
+import { ImageBackground, StyleSheet, Text, View } from "react-native";
+
 import BuyButton from "../../components/buy_now";
+import CartButton from "../../components/cart_button";
+import CategorieTag from "../../components/categorie_tag";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Star } from "lucide-react-native"
 
 export default function BookScreen() {
     return (
         <SafeAreaView style={styles.container}>
+
             <View style={styles.bookContainer}>
                 <View style={styles.bookCover}>
                     <ImageBackground
@@ -18,31 +20,39 @@ export default function BookScreen() {
                     />
                 </View>
             </View>
+
             <View style={styles.infoContainer}>
+
                 <View style={styles.titleContainer}>
                     <Text style={styles.title}>Near to the Wild Heart</Text>
                     <Text style={styles.priceTag}>$19</Text>
                 </View>
+
                 <View style={styles.reviewContainer}>
                     <Star color={"#eedd0f"} fill={"#eedd0f"}></Star>
                     <Text style={styles.reviewScore}>4.8</Text>
                     <Text style={styles.reviewNumbers}>/ 708 reviews</Text>
                 </View>
+
                 <View style={styles.tagContainer}>
-                    <CategorieTag />
-                    <CategorieTag />
-                    <CategorieTag />
-                    <CategorieTag />
+                    <CategorieTag size={"medium"}/>
+                    <CategorieTag size={"medium"}/>
+                    <CategorieTag size={"medium"}/>
+                    <CategorieTag size={"medium"}/>
                 </View>
+
                 <Text style={styles.descriptionTitle}>Book Overview</Text>
                 <View style={styles.descriptionContainer}>
                     <Text numberOfLines={5} ellipsizeMode="tail" style={styles.description}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</Text>
                 </View>
+
             </View>
+
             <View style={styles.buttonContainer}>
                 <View style={{ flex: 0.35 }}>
                     <CartButton fontSize={16} padding={12} />
                 </View>
+
                 <View style={{ flex: 0.65 }}>
                     <BuyButton />
                 </View>
@@ -77,12 +87,12 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: "Inter_600SemiBold",
-        color: 'white',
+        color: '#75938b',
         fontSize: 28
     },
     priceTag: {
         fontFamily: "Inter_300Light",
-        color: '#75938b',
+        color: 'white',
         fontSize: 32
     },
     titleContainer: {

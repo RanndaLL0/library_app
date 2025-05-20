@@ -1,5 +1,4 @@
 import { Pressable, StyleSheet, Text } from "react-native";
-import { FlaskConical } from 'lucide-react-native';
 
 export default function CategoriesCards({title,img}) {
     return (

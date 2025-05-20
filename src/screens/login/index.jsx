@@ -1,9 +1,11 @@
-import { Text, View, TouchableHighlight } from "react-native";
+import * as yup from "yup";
+
+import { Controller, useForm } from "react-hook-form";
+import { Text, TouchableHighlight, View } from "react-native";
+
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { TextInput } from "react-native-paper";
 import { styles } from "./styles";
-import { useForm, Controller } from "react-hook-form";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const validationSchema = yup.object({
@@ -66,7 +68,7 @@ export default function Login({ navigation }) {
                     {errors.password && <Text>Invalid Password</Text>}
 
                     <TouchableHighlight  style={styles.buttonArea} onPress={handleSubmit(onSubmit)}>
-                        <Text style={styles.buttonText}>Sign in</Text>
+                        <Text style={styles.buttonText}>Sign In</Text>
                     </TouchableHighlight>
 
                     <TouchableHighlight style={styles.forgotArea}>

@@ -1,9 +1,9 @@
-import { View,Text,StyleSheet } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
-export default function CategorieTag() {
+export default function CategorieTag({size}) {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Romance</Text>
+            <Text style={[styles.title, { fontSize: size === 'small' ? 12 : 16 }]}>Romance</Text>
         </View>
     )
 }
@@ -18,6 +18,5 @@ const styles = StyleSheet.create({
     title: {
         color: '#75938b',
         fontFamily: "Inter_400Regular",
-        fontSize: 16 
     }
 }) 

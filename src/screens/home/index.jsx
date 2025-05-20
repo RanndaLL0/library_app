@@ -1,11 +1,12 @@
 import { StyleSheet, Text } from "react-native";
+
+import BookCard from "../../components/book_card";
+import CategoriesList from "../../components/categories_list";
+import HighlightCard from "../../components/highlight_card";
+import ProductList from "../../components/product_list";
 import RectCard from "../../components/rect_card/index";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CategoriesList from "../../components/categories_list";
-import ProductList from "../../components/product_list";
 import { ScrollView } from "react-native";
-import HighlightCard from "../../components/highlight_card";
-import BookCard from "../../components/book_card";
 
 export default function Home({navigation}) {
 
@@ -112,12 +113,15 @@ export default function Home({navigation}) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView showsVerticalScrollIndicator={false}>
+
+            <ScrollView nestedScrollEnabled={true} style={{flex: 1}} showsVerticalScrollIndicator={false}>
                 <RectCard />
                 <CategoriesList/>
-                <ProductList title={"Recommended"} books={recommendedBooks}/>
-                <ProductList title={"Recommended"} books={bestSeller}/>
+                <ProductList horizontal={true} title={"Recommended"} books={recommendedBooks}/>
+                <ProductList horizontal={false} title={"Best Sellers"} books={bestSeller}/>
+                <ProductList horizontal={false} title={"Most voted"} books={bestSeller}/>
             </ScrollView>
+            
         </SafeAreaView>
     )
 }

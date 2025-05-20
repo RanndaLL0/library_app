@@ -1,6 +1,5 @@
-import React from "react";
-import { Pressable,Text } from "react-native";
-import { StyleSheet } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
+
 import { ShoppingCart } from 'lucide-react-native';
 
 export default function CartButton({fontSize,padding}) {

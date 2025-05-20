@@ -1,8 +1,9 @@
-import React from "react";
+import { Axe, BookHeart, Drama, FlaskConical, ReceiptJapaneseYen } from 'lucide-react-native';
 import { ScrollView, View } from "react-native";
+
 import CategoriesCards from "../categories_cards";
+import React from "react";
 import { StyleSheet } from "react-native";
-import { FlaskConical,BookHeart,Drama,ReceiptJapaneseYen,Axe } from 'lucide-react-native';
 
 export default function CategoriesList() {
 
@@ -13,12 +14,12 @@ export default function CategoriesList() {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
             >
-                <CategoriesCards title={"Sci-fy"} img={(<FlaskConical color={"#393939"} width={38} height={38}/>)} />
-                <CategoriesCards title={"Romance"} img={(<BookHeart  color={"#393939"} width={38} height={38}/>)} />
-                <CategoriesCards title={"Drama"} img={(<Drama color={"#393939"} width={38} height={38}/>)} />
-                <CategoriesCards title={"Novel"} img={(<BookHeart color={"#393939"} width={38} height={38}/>)} />
-                <CategoriesCards title={"Manga"} img={(<ReceiptJapaneseYen color={"#393939"} width={38} height={38}/>)} />
-                <CategoriesCards title={"Horror"} img={(<Axe color={"#393939"} width={38} height={38}/>)} />
+                <CategoriesCards title={"Sci-fy"} img={(<FlaskConical color={"#393939"} width={39} height={39}/>)} />
+                <CategoriesCards title={"Romance"} img={(<BookHeart  color={"#393939"} width={39} height={39}/>)} />
+                <CategoriesCards title={"Drama"} img={(<Drama color={"#393939"} width={39} height={39}/>)} />
+                <CategoriesCards title={"Novel"} img={(<BookHeart color={"#393939"} width={39} height={39}/>)} />
+                <CategoriesCards title={"Manga"} img={(<ReceiptJapaneseYen color={"#393939"} width={39} height={39}/>)} />
+                <CategoriesCards title={"Horror"} img={(<Axe color={"#393939"} width={39} height={39}/>)} />
             </ScrollView>
         </View>
     )

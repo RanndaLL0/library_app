@@ -1,17 +1,18 @@
-import React from "react";
-import { View,ScrollView,ImageBackground,Text ,StyleSheet} from "react-native";
-import BookCard from "../book_card";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-export default function ProductList({title,books}) {
+export default function ProductList({horizontal,title,books}) {
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.showAll}>Show All</Text>
             </View>
+
             <ScrollView 
                 contentContainerStyle={{gap: 18}}
-                horizontal={true}
+                horizontal={horizontal}
+                nestedScrollEnabled={true}
+                style={{height: horizontal ? 'auto' : 400, flex: 1}}
             >
                 {
                     books.map((book) => {
@@ -26,8 +27,7 @@ export default function ProductList({title,books}) {
 const styles = StyleSheet.create({
     container: {
         border: 1,
-        borderColor: "white",
-        marginTop: 24
+        marginTop: 24,
     },
     title: {
         fontSize: 28,
