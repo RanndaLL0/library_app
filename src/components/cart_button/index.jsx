@@ -1,13 +1,16 @@
-import { Pressable, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, TouchableHighlight } from "react-native";
 
 import { ShoppingCart } from 'lucide-react-native';
 
-export default function CartButton({fontSize,padding}) {
+export default function CartButton({ fontSize, padding, onPress }) {
+
     return (
-        <Pressable style={[styles.container, {padding: padding}]}>
-            <ShoppingCart color="#fff" width={16} height={16}/>
-            <Text style={[styles.title, {fontSize: fontSize}]}>Add to cart</Text>
-        </Pressable>
+        <>
+            <TouchableHighlight onPress={onPress} style={[styles.container, { padding: padding }]}>
+                <ShoppingCart color="#fff" width={16} height={16} />
+                <Text style={[styles.title, { fontSize: fontSize }]}>Add to cart</Text>
+            </TouchableHighlight>
+        </>
     )
 }
 

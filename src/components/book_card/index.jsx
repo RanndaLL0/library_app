@@ -3,7 +3,7 @@ import { ImageBackground, Pressable, StyleSheet, Text, View } from "react-native
 import CartButton from "../cart_button";
 import CategorieTag from "../categorie_tag";
 
-export default function BookCard({ title, price, ...props }) {
+export default function BookCard({ title, price, modalRef, ...props }) {
     return (
         <Pressable onPress={() => props.navigation.navigate("BookScreen")}>
             <View style={[styles.backgroundBook, props.aside ? styles.asideBackground : { flexDirection: 'column' }]}>
@@ -21,10 +21,10 @@ export default function BookCard({ title, price, ...props }) {
 
                     {
                         props.aside &&
-                        <View style={{flex: 1, flexDirection: 'row', gap: 5, flexWrap: 'wrap'}}>
-                            <CategorieTag size={"small"}/>
-                            <CategorieTag size={"small"}/>
-                            <CategorieTag size={"small"}/>
+                        <View style={{ flex: 1, flexDirection: 'row', gap: 5, flexWrap: 'wrap' }}>
+                            <CategorieTag size={"small"} />
+                            <CategorieTag size={"small"} />
+                            <CategorieTag size={"small"} />
                         </View>
                     }
 
@@ -36,7 +36,11 @@ export default function BookCard({ title, price, ...props }) {
                     </View>
 
                     <View style={styles.buttonContainer}>
-                        {props.aside && <CartButton fontSize={16} padding={10} />}
+                        {props.aside && <CartButton
+                            onPress={modalRef}
+                            fontSize={16}
+                            padding={10}
+                        />}
                     </View>
 
                 </View>
