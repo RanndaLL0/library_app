@@ -37,7 +37,7 @@ export default function BookCard({ title, price, modalRef, ...props }) {
 
                     <View style={styles.buttonContainer}>
                         {props.aside && <CartButton
-                            onPress={modalRef}
+                            func={() => modalRef?.()}
                             fontSize={16}
                             padding={10}
                         />}

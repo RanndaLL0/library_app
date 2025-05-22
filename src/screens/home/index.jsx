@@ -1,9 +1,10 @@
-import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, Text } from "react-native";
 import { useCallback, useRef } from "react";
 
 import BookCard from "../../components/book_card";
+import BottomSheet from "../../components/bottom_sheet";
 import CategoriesList from "../../components/categories_list";
+import ModalBookCard from "../../components/modal_card";
 import ProductList from "../../components/product_list";
 import RectCard from "../../components/rect_card/index";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -125,6 +126,7 @@ export default function Home({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
+            
             <ScrollView nestedScrollEnabled={true} style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
                 <RectCard />
                 <CategoriesList />
@@ -132,13 +134,9 @@ export default function Home({ navigation }) {
                 <ProductList horizontal={false} title={"Best Sellers"} books={bestSeller} />
                 <ProductList horizontal={false} title={"Most voted"} books={bestSeller} />
             </ScrollView>
-
-            <BottomSheetModal ref={bottomSheetModalRef} index={0} snapPoints={['50%']}>
-                <BottomSheetView>
-                    <Text>Conteúdo do modal</Text>
-                </BottomSheetView>
-            </BottomSheetModal>
-            
+            <BottomSheet modalRefence={bottomSheetModalRef}>
+                <ModalBookCard/>
+            </BottomSheet>
         </SafeAreaView>
     )
 }
@@ -150,4 +148,9 @@ const styles = StyleSheet.create({
         paddingLeft: 18,
         paddingRight: 18,
     },
+    infoText: {
+        color: "white",
+        fontFamily: "Inter_400Regular",
+        fontSize: 42,
+    }
 })

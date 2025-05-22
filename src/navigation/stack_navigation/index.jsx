@@ -1,12 +1,11 @@
-import Home from "../../screens/home";
-import Login from "../../screens/login";
-import React from "react";
-import Register from "../../screens/register";
-import { View, Pressable } from "react-native";
 import { ChevronLeft, HeartPlus } from "lucide-react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import DrawerNavigation from "../drawer_navigation";
+
 import BookScreen from "../../screens/book_screen";
+import DrawerNavigation from "../drawer_navigation";
+import Login from "../../screens/login";
+import { Pressable } from "react-native";
+import Register from "../../screens/register";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 export default function AppNavigation() {
 

@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { Inter_200ExtraLight, Inter_300Light, Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_600SemiBold_Italic, useFonts } from '@expo-google-fonts/inter'
 
 import AppNavigation from './src/navigation/stack_navigation';
@@ -22,15 +20,15 @@ export default function App() {
   })
 
   return (
-    <PaperProvider>
-      <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <PaperProvider>
         <BottomSheetModalProvider>
           <NavigationContainer>
             <AppNavigation />
           </NavigationContainer>
         </BottomSheetModalProvider>
-      </GestureHandlerRootView>
-    </PaperProvider>
+      </PaperProvider>
+    </GestureHandlerRootView>
   );
 }
 

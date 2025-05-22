@@ -1,44 +1,23 @@
-import {
-    BottomSheetModal,
-    BottomSheetModalProvider,
-    BottomSheetView,
-} from '@gorhom/bottom-sheet';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import React, { useCallback, useMemo, useRef } from 'react';
+import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet"
 
-import CartButton from '../../components/cart_button';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { StyleSheet } from "react-native"
 
-export default function BottomModal() {
-    const bottomSheetModalRef = useRef(null);
-
-    const handlePresentModalPress = useCallback(() => {
-        bottomSheetModalRef.current?.present();
-    }, []);
-    const handleSheetChanges = useCallback((index) => {
-        console.log('handleSheetChanges', index);
-    }, []);
-    const handleCloseAction = useCallback(() => {
-        bottomSheetModalRef.current?.close();
-    }, [])
-    
+export default function BottomSheet({ children, modalRefence }) {
     return (
-        <GestureHandlerRootView>
-            <BottomSheetModalProvider>
-                <CartButton
-                    onPress={handlePresentModalPress}
-                    fontSize={16}
-                    padding={10}
-                />
-                <BottomSheetModal
-                    ref={bottomSheetModalRef}
-                    onChange={handleSheetChanges}
-                >  
-                <BottomSheetView>
-                    <Text>Awesome 🎉</Text>
-                </BottomSheetView>
-                </BottomSheetModal>
-            </BottomSheetModalProvider>
-        </GestureHandlerRootView>
-    );
-};
+        <BottomSheetModal style={{ borderRadius: 40 }} ref={modalRefence} index={0} snapPoints={['100%']}>
+            <BottomSheetView style={styles.modalContainer}>
+                {children}
+            </BottomSheetView>
+        </BottomSheetModal>
+    )
+}
+
+const styles = StyleSheet.create({
+    modalContainer: {
+        flex: 0.65,
+        backgroundColor: "#161616",
+        paddingLeft: 18,
+        paddingRight: 18,
+        paddingTop: 20,
+    },
+})
