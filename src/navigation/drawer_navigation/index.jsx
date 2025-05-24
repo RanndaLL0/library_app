@@ -1,6 +1,7 @@
 import { AlignLeft, Heart, House, LogOut, Settings, ShoppingCart } from 'lucide-react-native';
 import { Pressable, Text, View } from 'react-native';
 
+import Categories from "../../screens/categories";
 import { Drawer } from "react-native-paper"
 import Home from "../../screens/home";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -35,6 +36,7 @@ export default function DrawerNavigation() {
                             label={<Text style={{ color: '#A9A9A9' }}>Home</Text>}
                             onPress={() => {
                                 setActive("Home");
+                                navigation.navigate("Home");
                             }}
                         />
 
@@ -111,10 +113,26 @@ export default function DrawerNavigation() {
             })}
             initialRouteName="Home"
         >
+            
             <RNDrawer.Screen
                 name="Home"
                 component={Home}
             />
+
+            <RNDrawer.Screen
+                name="Categories"
+                component={Categories}
+                options={{
+                    headerSearchBarOptions: {
+                        placeholder: "Search",
+                        onChangeText: (e) => console.log(e.nativeEvent.text),
+                        onCancelButtonPress: () => console.log("onCancelButtonPress"),
+                        onIconPress: () => console.log("onIconPress"),
+                    },
+                    title: "Categories"
+                }}
+            />
+            
         </RNDrawer.Navigator>
     )
 }

@@ -1,6 +1,7 @@
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, Text } from "react-native";
 
 import { ShoppingCart } from 'lucide-react-native';
+import { styles } from "./styles";
 
 export default function CartButton({ fontSize, padding, func }) {
 
@@ -13,20 +14,3 @@ export default function CartButton({ fontSize, padding, func }) {
         </>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: "#283330",
-        padding: 10,
-        borderRadius: 10,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: 8,
-        flex: 1
-    },
-    title: {
-        color: "white",
-        fontFamily: "Inter_400Regular"
-    }
-})

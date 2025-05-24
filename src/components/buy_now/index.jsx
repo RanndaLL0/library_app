@@ -1,5 +1,7 @@
-import { View,Text,StyleSheet } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
+
 import { ChevronRight } from "lucide-react-native"
+import { styles } from "./styles"
 
 export default function BuyButton() {
     return (
@@ -9,19 +11,3 @@ export default function BuyButton() {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#283330',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 8
-    },
-    title: {
-        fontFamily: 'Inter_400Regular',
-        fontSize: 18,
-        color: 'white'
-    }
-})

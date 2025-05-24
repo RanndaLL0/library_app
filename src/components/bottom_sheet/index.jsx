@@ -1,23 +1,22 @@
-import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet"
+import { BottomSheetModal, BottomSheetScrollView, BottomSheetView } from "@gorhom/bottom-sheet"
 
-import { StyleSheet } from "react-native"
+import { styles } from "./styles"
+import { useMemo } from "react"
 
 export default function BottomSheet({ children, modalRefence }) {
+
+    const snapPoints = useMemo(() => ["75%"], []);
+
     return (
-        <BottomSheetModal style={{ borderRadius: 40 }} ref={modalRefence} index={0} snapPoints={['100%']}>
-            <BottomSheetView style={styles.modalContainer}>
+        <BottomSheetModal
+            enableDynamicSizing={ false }
+            style={{ borderRadius: 40 }}
+            ref={modalRefence} 
+            index={0} 
+            snapPoints={snapPoints}>
+            <BottomSheetScrollView  contentContainerStyle={styles.modalContainer}>
                 {children}
-            </BottomSheetView>
+            </BottomSheetScrollView>
         </BottomSheetModal>
     )
 }
-
-const styles = StyleSheet.create({
-    modalContainer: {
-        flex: 0.65,
-        backgroundColor: "#161616",
-        paddingLeft: 18,
-        paddingRight: 18,
-        paddingTop: 20,
-    },
-})

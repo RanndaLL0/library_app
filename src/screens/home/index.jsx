@@ -129,7 +129,7 @@ export default function Home({ navigation }) {
             
             <ScrollView nestedScrollEnabled={true} style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
                 <RectCard />
-                <CategoriesList />
+                <CategoriesList navigation={navigation} />
                 <ProductList horizontal={true} title={"Recommended"} books={recommendedBooks} />
                 <ProductList horizontal={false} title={"Best Sellers"} books={bestSeller} />
                 <ProductList horizontal={false} title={"Most voted"} books={bestSeller} />

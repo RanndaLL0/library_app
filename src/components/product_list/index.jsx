@@ -1,5 +1,6 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 
+import { styles } from "./styles";
 export default function ProductList({horizontal,title,books}) {
     return (
         <View style={styles.container}>
@@ -23,29 +24,3 @@ export default function ProductList({horizontal,title,books}) {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        border: 1,
-        marginTop: 24,
-    },
-    title: {
-        fontSize: 28,
-        color: "white",
-        fontFamily: "Inter_300Light"
-    },
-    titleContainer: {
-        justifyContent: "space-between",
-        flexDirection: "row",
-        alignItems: "center",
-        marginBottom: 18
-    },
-    showAll: {
-        fontSize: 16,
-        color: "white",
-        textDecorationLine: "underline",
-        fontWeight: 200,
-        alignSelf: "flex-end",
-        fontFamily: "Inter_200ExtraLight"
-    }
-})

@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text } from "react-native";
 
+import { styles } from "./styles";
 export default function RectCard() {
     return (
         <Pressable style={styles.cardContainer}>
@@ -8,24 +9,3 @@ export default function RectCard() {
         </Pressable>
     )
 }
-
-const styles = StyleSheet.create({
-    cardContainer: {
-        backgroundColor: "#202020",
-        borderRadius: 12,
-        paddingTop: 32,
-        paddingBottom: 32,
-        paddingLeft: 32,
-        marginBottom: 24
-    },
-    title: {
-        fontSize: 32,
-        color: 'white',
-        fontFamily: "Inter_400Regular"
-    },
-    subTitle: {
-        color: "#585858",
-        fontSize: 24,
-        fontFamily: "Inter_500Medium"
-    }
-})

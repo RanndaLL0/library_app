@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 
+import { styles } from './styles'
 export default function CategorieTag({size}) {
     return (
         <View style={styles.container}>
@@ -7,16 +8,3 @@ export default function CategorieTag({size}) {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#283330',
-        padding: 6,
-        borderRadius: 6,
-        marginTop: 16
-    },
-    title: {
-        color: '#75938b',
-        fontFamily: "Inter_400Regular",
-    }
-}) 
