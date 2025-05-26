@@ -1,19 +1,29 @@
-import { Text, View, TouchableHighlight } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { styles } from "./styles";
-import { TextInput } from "react-native-paper";
-import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
+
+import { Controller, useForm } from "react-hook-form";
+import { Modal, Text as PaperText, Portal } from "react-native-paper";
+import { Text, TouchableHighlight, View } from "react-native";
+
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { TextInput } from "react-native-paper";
+import { UserRoundX } from "lucide-react-native";
+import { auth } from "../../../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { styles } from "./styles";
+import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const validationSchema = yup.object({
     email: yup.string().email().required(),
     userName: yup.string().required(),
     password: yup.string().min(8).required(),
-    confirmPassword: yup.string().oneOf([yup.ref('passoword'), null])
+    confirmPassword: yup.string()
+        .oneOf([yup.ref('password'), null], 'Passwords must match')
+        .required('Confirm Password is required')
 }).required();
 
 export default function Register({ navigation }) {
+    const [visible, setVisible] = useState(false);
     const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(validationSchema),
         defaultValues: {
@@ -24,8 +34,18 @@ export default function Register({ navigation }) {
         }
     })
 
-    const onSubmit = (data) => {
-        alert('haha')
+    const onSubmit = async (data) => {
+        console.log(control._formValues);
+        await createUserWithEmailAndPassword(auth, data.email, data.password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                navigation.navigate("Login");
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error("Erro ao se cadastrar:", errorCode, errorMessage);
+            });
     }
 
     return (
@@ -110,6 +130,18 @@ export default function Register({ navigation }) {
 
                 </View>
             </View>
+            <Portal>
+                <Modal
+                    visible={visible}
+                    onDismiss={() => setVisible(false)}
+                    contentContainerStyle={styles.modalContainer}
+                >
+                    <UserRoundX height={62} width={62} />
+                    <PaperText style={styles.modalText}>
+                        Usuario Incorreto ou Inexistente
+                    </PaperText>
+                </Modal>
+            </Portal>
         </SafeAreaProvider>
     )
 }

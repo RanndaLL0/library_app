@@ -10,9 +10,8 @@ import RectCard from "../../components/rect_card/index";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home({ navigation }) {
-    
     const bottomSheetModalRef = useRef(null);
-
+    
     const handleOpenModal = useCallback(() => {
         console.log("Modal aberto");
         bottomSheetModalRef.current?.present();
