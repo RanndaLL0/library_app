@@ -97,19 +97,6 @@ export default function Login({ navigation }) {
                     Sign Up
                 </Text>
             </View>
-            <Portal>
-                <Modal
-                    visible={visible}
-                    onDismiss={() => setVisible(false)}
-                    contentContainerStyle={styles.modalContainer}
-                >
-                    <UserRoundX height={62} width={62}/>
-                    <PaperText style={styles.modalText}>
-                        Usuario Incorreto ou Inexistente
-                    </PaperText>
-                </Modal>
-            </Portal>
-
         </SafeAreaProvider>
     )
 }
