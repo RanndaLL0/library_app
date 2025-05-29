@@ -27,10 +27,6 @@ export default function AppNavigation() {
                     headerLeft: () =>
                         <Pressable onPress={() => navigation.navigate("Drawer")}>
                             <ChevronLeft color="white" size={32} />
-                        </Pressable>,
-                    headerRight: () =>
-                        <Pressable onPress={() => navigation.navigate("Drawer")}>
-                            <HeartPlus color="white" size={26} />
                         </Pressable>
                 })}
             >

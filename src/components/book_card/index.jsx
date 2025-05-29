@@ -6,7 +6,7 @@ import { styles } from "./styles";
 
 export default function BookCard({ title, price, modalRef, ...props }) {
     return (
-        <Pressable onPress={() => props.navigation.navigate("BookScreen")}>
+        <Pressable onPress={() => props.navigation.navigate("BookScreen", { book: props.book })}>
             <View style={[styles.backgroundBook, props.aside ? styles.asideBackground : { flexDirection: 'column' }]}>
 
                 <View style={[styles.container, { height: props.height, width: props.width }]}>
@@ -14,25 +14,31 @@ export default function BookCard({ title, price, modalRef, ...props }) {
                         style={styles.backGroundImage}
                         resizeMode="cover"
                         imageStyle={{ borderRadius: 18 }}
-                        source={{ uri: props.cover }} />
+                        source={{ uri: props.book.Cover }} />
                 </View>
 
                 <View style={styles.infoContainer}>
-                    <Text style={props.aside ? styles.asideTitle : styles.title}>{title}</Text>
+                    <Text numberOfLines={1} ellipsizeMode="tail" style={props.aside ? styles.asideTitle : styles.title}>{props.book.Name}</Text>
 
                     {
                         props.aside &&
                         <View style={{ flex: 1, flexDirection: 'row', gap: 5, flexWrap: 'wrap' }}>
-                            <CategorieTag size={"small"} />
-                            <CategorieTag size={"small"} />
-                            <CategorieTag size={"small"} />
+                            {
+                                props.book.Categories.map((categorie) => {
+                                    return (
+                                        <CategorieTag size={'small'} tagName={categorie}/>
+                                    )
+                                })
+                            }
                         </View>
                     }
 
                     <View style={styles.priceContainer}>
                         <View style={styles.oldPriceContainer}>
-                            <Text style={styles.priceTag}>${price}</Text>
-                            <Text style={styles.oldPriceTag}>${props.oldPrice}</Text>
+                            <Text style={styles.priceTag}>${props.book.Price}</Text>
+                            {
+                                props.book.OldPrice && <Text style={styles.oldPriceTag}>${props.book.OldPrice}</Text>
+                            }
                         </View>
                     </View>
 

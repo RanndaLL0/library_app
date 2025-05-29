@@ -13,7 +13,8 @@ export const styles = StyleSheet.create({
         padding: 5,
         gap: 1,
         justifyContent: 'flex-start',
-        alignSelf: 'flex-start'
+        alignSelf: 'flex-start',
+        flex: 1
     },
     backgroundBook: {
         borderRadius: 18,
@@ -30,6 +31,10 @@ export const styles = StyleSheet.create({
         paddingTop: 7,
         paddingBottom: 7,
         paddingLeft: 9,
+        minWidth: 349,
+        maxWidth: 350,
+        borderWidth: 1,
+        borderColor: '#303030'
     },
     priceTag: {
         color: '#75938b',
@@ -53,6 +58,7 @@ export const styles = StyleSheet.create({
         textDecorationLine: "line-through"
     },
     buttonContainer: {
-        marginTop: 10
+        marginTop: 10,
+        maxWidth: '100%'
     }
 })

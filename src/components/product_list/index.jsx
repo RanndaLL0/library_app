@@ -1,7 +1,10 @@
 import { ScrollView, Text, View } from "react-native";
 
+import { Book } from "lucide-react-native";
+import BookCard from "../book_card";
 import { styles } from "./styles";
-export default function ProductList({horizontal,title,books}) {
+
+export default function ProductList({handleOpenModal,navigation,horizontal,title,books}) {
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
@@ -17,7 +20,17 @@ export default function ProductList({horizontal,title,books}) {
             >
                 {
                     books.map((book) => {
-                        return book
+                        return (
+                            <BookCard
+                                book={book}
+                                height={180}
+                                width={110}
+                                aside={true}
+                                navigation={navigation}
+                                modalRef={handleOpenModal}
+                                categorieSize={"small"}
+                            />
+                        )
                     })
                 }
             </ScrollView>

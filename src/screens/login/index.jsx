@@ -1,16 +1,14 @@
 import * as yup from "yup";
 
 import { Controller, useForm } from "react-hook-form";
-import { Modal, Text as PaperText, Portal } from "react-native-paper";
 import { Text, TouchableHighlight, View } from "react-native";
+import { useContext, useState } from "react";
 
+import { AuthContext } from "../../auth/auth_context";
+import ModalLogin from "../../components/modal_login/index";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { TextInput } from "react-native-paper";
-import { UserRoundX } from "lucide-react-native"
-import { auth } from "../../../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { styles } from "./styles";
-import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const validationSchema = yup.object({
@@ -19,8 +17,8 @@ const validationSchema = yup.object({
 }).required();
 
 export default function Login({ navigation }) {
-    const [visible, setVisible] = useState(false);
 
+    const [visible, setVisible] = useState(false);
     const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(validationSchema),
         defaultValues: {
@@ -29,16 +27,17 @@ export default function Login({ navigation }) {
         }
     })
 
+    const {
+         login 
+    } = useContext(AuthContext);
+
     const onSubmit = async (data) => {
-        await signInWithEmailAndPassword(auth, data.email, data.password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                navigation.navigate("Drawer");
-            })
-            .catch((error) => {
-                setVisible(true);
-            });
-    }
+        try {
+            await login(data,setVisible,navigation);
+        } catch (error) {
+            console.error("Login failed:", error);
+        }
+    } 
 
     return (
         <SafeAreaProvider style={styles.mainContainer}>
@@ -88,7 +87,7 @@ export default function Login({ navigation }) {
                     <TouchableHighlight style={styles.forgotArea}>
                         <Text style={styles.forgotText}>Forgot your password?</Text>
                     </TouchableHighlight>
-
+                    <ModalLogin visible={visible} setVisible={setVisible} />
                 </View>
             </View>
 

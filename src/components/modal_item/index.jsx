@@ -5,7 +5,7 @@ import CategorieTag from '../categorie_tag';
 import { styles } from './styles';
 import { useState } from "react";
 
-export default function ModalItem() {
+export default function ModalItem( { navigation } ) {
 
     const [cartAmount, setCartAmount] = useState(1);
     const handleAddToCart = () => {
@@ -19,7 +19,7 @@ export default function ModalItem() {
 
     return (
         <View style={{ flexDirection: "row", gap: 10, flex: 0.75 }}>
-            <Pressable style={styles.imageContainer}>
+            <Pressable onPress={() => navigation.navigate("BookScreen")} style={styles.imageContainer}>
                 <ImageBackground
                     style={{ flex: 1 }}
                     source={{ uri: "https://bookcoverarchive.com/wp-content/uploads/2015/09/Near-to-the-Wild-Heart.jpg" }}

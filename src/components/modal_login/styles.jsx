@@ -1,4 +1,6 @@
-export const styles = useStyleSheet.create({
+import { StyleSheet } from "react-native"
+
+export const styles = StyleSheet.create({
     modalContainer: {
         flex: 0.2,
         width: '90%',

@@ -1,43 +1,84 @@
+import { collection, getDocs, query, where } from "firebase/firestore"
+import { useCallback, useEffect, useRef, useState } from "react"
+
+import { AuthContext } from "../../auth/auth_context"
 import BookCard from "../../components/book_card"
+import BottomSheet from "../../components/bottom_sheet"
+import ModalBookCard from "../../components/modal_card"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { ScrollView } from "react-native-gesture-handler"
-import { View } from "lucide-react-native"
+import { TextInput } from "react-native-paper"
+import { View } from "react-native"
+import { db } from "../../../firebase"
 import { styles } from "./styles"
+import { useContext } from "react"
 
-export default function Categories({ navigation }) {
+export default function Categories({ navigation, route }) {
 
-    const recommendedBooks = [
-        <BookCard
-            title={"Near to the Wild Heart"}
-            price={15.99}
-            oldPrice={19.00}
-            height={250}
-            width={160}
-            cover={"https://bookcoverarchive.com/wp-content/uploads/2015/09/Near-to-the-Wild-Heart.jpg"}
-            navigation={navigation}
-        />,
-        <BookCard
-            title={"Near to the Wild Heart"}
-            price={15.99}
-            oldPrice={19.00}
-            height={250}
-            width={160}
-            cover={"https://bookcoverarchive.com/wp-content/uploads/2015/09/Near-to-the-Wild-Heart.jpg"}
-            navigation={navigation}
-        />,
-    ]
+    const { screenTitle, books } = route.params;
+    const [filter, setFilter] = useState("");
+    const bottomSheetModalRef = useRef(null);
+    const { user } = useContext(AuthContext);
+    const [bookList,setBookList] = useState();
+
+    const handleBooks = async () => {
+        try {
+            const query = query(collection(db, 'Books'), where('Categories', "array-contains", screenTitle))
+            const querySnapshot = await getDocs(query)
+
+        } catch(error) {
+            console.error("Erro ao consultar livros: " + error)
+        }
+    }
+
+    useEffect(() => {
+        if (user) {
+            handleBooks()
+        }
+    }, [])
+
+    const handleOpenModal = useCallback(() => {
+        console.log("Modal aberto");
+        bottomSheetModalRef.current?.present();
+    }, []);
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "#161616" }}>
-            <ScrollView>
-                {recommendedBooks.map((book, index) => {
+            <View style={styles.searchInputContainer}>
+                <TextInput
+                    mode="outlined"
+                    placeholder={`Search for ${screenTitle}`}
+                    label={screenTitle}
+                    style={styles.searchInput}
+                    value={filter}
+                    onChangeText={(text) => setFilter(text)}
+                    outlineColor="#393939"
+                    activeOutlineColor="#666666"
+                    textColor="white"
+                    left={<TextInput.Icon icon="magnify" color={"#393939"} />}
+                    right={<TextInput.Icon icon="close" color={"#393939"} onPress={() => setFilter("")} />}
+                />
+            </View>
+            <ScrollView style={styles.containerStyle}
+                contentContainerStyle={{ gap: 10 }}
+                showsVerticalScrollIndicator={false}>
+                {books.map((book) => {
                     return (
-                        <View key={index} style={styles.bookCardContainer}>
-                            {book}
-                        </View>
+                        <BookCard
+                            book={book}
+                            height={180}
+                            width={110}
+                            aside={true}
+                            navigation={navigation}
+                            modalRef={handleOpenModal}
+                            categorieSize={"small"}
+                        />
                     )
                 })}
             </ScrollView>
+            <BottomSheet modalRefence={bottomSheetModalRef}>
+                <ModalBookCard />
+            </BottomSheet>
         </SafeAreaView>
     )
 }

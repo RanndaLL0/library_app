@@ -2,6 +2,7 @@ import { Inter_200ExtraLight, Inter_300Light, Inter_400Regular, Inter_500Medium,
 
 import AppNavigation from './src/navigation/stack_navigation';
 import { AppRegistry } from 'react-native';
+import AuthProvider from './src/auth/auth_provider';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
@@ -20,15 +21,17 @@ export default function App() {
   })
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <PaperProvider>
-        <BottomSheetModalProvider>
-          <NavigationContainer>
-            <AppNavigation />
-          </NavigationContainer>
-        </BottomSheetModalProvider>
-      </PaperProvider>
-    </GestureHandlerRootView>
+    <AuthProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <PaperProvider>
+          <BottomSheetModalProvider>
+            <NavigationContainer>
+              <AppNavigation />
+            </NavigationContainer>
+          </BottomSheetModalProvider>
+        </PaperProvider>
+      </GestureHandlerRootView>
+    </AuthProvider>
   );
 }
 

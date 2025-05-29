@@ -1,6 +1,7 @@
 import { AlignLeft, Heart, House, LogOut, Settings, ShoppingCart } from 'lucide-react-native';
 import { Pressable, Text, View } from 'react-native';
 
+import Cart from '../../screens/cart';
 import Categories from "../../screens/categories";
 import { Drawer } from "react-native-paper"
 import Home from "../../screens/home";
@@ -16,7 +17,10 @@ export default function DrawerNavigation() {
 
     return (
         <RNDrawer.Navigator
-            drawerContent={() => (
+            drawerContent={(props) => {
+                const { navigation } = props;
+
+                return(
                 <View style={{ marginTop: 48 }}>
 
                     <Text
@@ -51,19 +55,9 @@ export default function DrawerNavigation() {
                             }
                             onPress={() => {
                                 setActive("Cart");
+                                navigation.navigate("Cart");
                             }}
                         />
-
-                        <Drawer.Item
-                            style={{ backgroundColor: "#161616" }}
-                            icon={() => <Heart color={"white"} size={28} />}
-                            label={<Text style={{ color: '#A9A9A9' }}>Favorites</Text>}
-                            active={active === "Favorites"}
-                            onPress={() => {
-                                setActive("Favorites");
-                            }}
-                        />
-
                     </Drawer.Section>
                     <Drawer.Section style={{ marginTop: 12 }}>
 
@@ -91,7 +85,7 @@ export default function DrawerNavigation() {
 
                     </Drawer.Section>
                 </View>
-            )}
+            )}}
             screenOptions={({ navigation }) => ({
                 headerLeft: () => (
                     <Pressable onPress={() => navigation.toggleDrawer()} style={{ paddingLeft: 24, marginRight: 10 }}>
@@ -122,15 +116,13 @@ export default function DrawerNavigation() {
             <RNDrawer.Screen
                 name="Categories"
                 component={Categories}
-                options={{
-                    headerSearchBarOptions: {
-                        placeholder: "Search",
-                        onChangeText: (e) => console.log(e.nativeEvent.text),
-                        onCancelButtonPress: () => console.log("onCancelButtonPress"),
-                        onIconPress: () => console.log("onIconPress"),
-                    },
-                    title: "Categories"
-                }}
+                options={{ title: "Categories" }}
+            />
+
+            <RNDrawer.Screen
+                name="Cart"
+                component={Cart}
+                options={{ title: "My Cart" }}
             />
             
         </RNDrawer.Navigator>

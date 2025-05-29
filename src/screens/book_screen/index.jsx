@@ -1,19 +1,44 @@
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
+import BottomSheet from "../../components/bottom_sheet";
 import BuyButton from "../../components/buy_now";
 import CartButton from "../../components/cart_button";
 import CategorieTag from "../../components/categorie_tag";
+import FavoriteModal from "../../components/favorite_modal";
+import ModalBookCard from "../../components/modal_card";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Star } from "lucide-react-native"
 
-export default function BookScreen() {
+export default function BookScreen({route}) {
+
+    const [ favoriteModal,setFavoriteModal ] = useState(false);
+    const bottomSheetModalRef = useRef(null);
+    const navigation = useNavigation();
+    const  { book } = route.params;
+
+    const handleHeartPress = () => {
+        setFavoriteModal(true);
+        console.log("um teste");
+    }
+
+    useEffect(() => {
+        navigation.setParams({onHeartPress: handleHeartPress})
+    },[])
+
+    const handleOpenModal = useCallback(() => {
+        console.log("Modal aberto");
+        bottomSheetModalRef.current?.present();
+    }, []);
+
     return (
         <SafeAreaView style={styles.container}>
 
             <View style={styles.bookContainer}>
                 <View style={styles.bookCover}>
                     <ImageBackground
-                        source={{ uri: "https://bookcoverarchive.com/wp-content/uploads/2015/09/Near-to-the-Wild-Heart.jpg" }}
+                        source={{ uri: book.Cover }}
                         style={styles.imageBook}
                         resizeMode="cover"
                         imageStyle={{ borderRadius: 18 }}
@@ -24,8 +49,8 @@ export default function BookScreen() {
             <View style={styles.infoContainer}>
 
                 <View style={styles.titleContainer}>
-                    <Text style={styles.title}>Near to the Wild Heart</Text>
-                    <Text style={styles.priceTag}>$19</Text>
+                    <Text style={styles.title}>{book.Name}</Text>
+                    <Text style={styles.priceTag}>${book.Price}</Text>
                 </View>
 
                 <View style={styles.reviewContainer}>
@@ -35,28 +60,35 @@ export default function BookScreen() {
                 </View>
 
                 <View style={styles.tagContainer}>
-                    <CategorieTag size={"medium"}/>
-                    <CategorieTag size={"medium"}/>
-                    <CategorieTag size={"medium"}/>
-                    <CategorieTag size={"medium"}/>
+                    {
+                        book.Categories.map((tag) => {
+                         return (
+                            <CategorieTag tagName={tag} size={'medium'} />
+                         )   
+                        })
+                    }
                 </View>
 
                 <Text style={styles.descriptionTitle}>Book Overview</Text>
                 <View style={styles.descriptionContainer}>
-                    <Text numberOfLines={5} ellipsizeMode="tail" style={styles.description}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</Text>
+                    <Text numberOfLines={5} ellipsizeMode="tail" style={styles.description}>{book.Description}</Text>
                 </View>
 
             </View>
 
             <View style={styles.buttonContainer}>
                 <View style={{ flex: 0.35 }}>
-                    <CartButton fontSize={16} padding={12} />
+                    <CartButton fontSize={16} padding={12} func={handleOpenModal} />
                 </View>
 
                 <View style={{ flex: 0.65 }}>
                     <BuyButton />
                 </View>
             </View>
+            <BottomSheet modalRefence={bottomSheetModalRef}>
+                <ModalBookCard />
+            </BottomSheet>
+            { favoriteModal && <FavoriteModal modalState={favoriteModal} setModalState={setFavoriteModal}/> }
         </SafeAreaView>
     )
 }
@@ -88,12 +120,13 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: "Inter_600SemiBold",
         color: '#75938b',
-        fontSize: 28
+        fontSize: 28,
+        maxWidth: '60%'
     },
     priceTag: {
         fontFamily: "Inter_300Light",
         color: 'white',
-        fontSize: 32
+        fontSize: 26
     },
     titleContainer: {
         flexDirection: 'row',
@@ -137,11 +170,11 @@ const styles = StyleSheet.create({
         fontSize: 22,
         color: 'white'
     },
-    buttonContainer: { 
+    buttonContainer: {
         flexDirection: 'row',
         gap: 15,
         paddingLeft: 18,
         paddingRight: 18,
         height: 50
-    }
+    },
 })
