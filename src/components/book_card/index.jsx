@@ -5,6 +5,10 @@ import CategorieTag from "../categorie_tag";
 import { styles } from "./styles";
 
 export default function BookCard({ title, price, modalRef, ...props }) {
+    const handleModalOpen = async () => {
+        modalRef?.(props.book)
+    }
+
     return (
         <Pressable onPress={() => props.navigation.navigate("BookScreen", { book: props.book })}>
             <View style={[styles.backgroundBook, props.aside ? styles.asideBackground : { flexDirection: 'column' }]}>
@@ -44,9 +48,10 @@ export default function BookCard({ title, price, modalRef, ...props }) {
 
                     <View style={styles.buttonContainer}>
                         {props.aside && <CartButton
-                            func={() => modalRef?.()}
+                            func={() => handleModalOpen()}
                             fontSize={16}
                             padding={10}
+                            bookId={props.book.id}
                         />}
                     </View>
 

@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
         fontFamily: "Inter_500medium",
         fontSize: 22,
         color: "white",
+        maxWidth: '80%'
     },
     priceTag: {
         fontFamily: "Inter_500medium",

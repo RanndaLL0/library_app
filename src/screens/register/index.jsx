@@ -3,12 +3,15 @@ import * as yup from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { Modal, Text as PaperText, Portal } from "react-native-paper";
 import { Text, TouchableHighlight, View } from "react-native";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { TextInput } from "react-native-paper";
 import { UserRoundX } from "lucide-react-native";
 import { auth } from "../../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { db } from "../../../firebase";
 import { styles } from "./styles";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -36,17 +39,21 @@ export default function Register({ navigation }) {
 
     const onSubmit = async (data) => {
         console.log(control._formValues);
-        await createUserWithEmailAndPassword(auth, data.email, data.password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                navigation.navigate("Login");
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.error("Erro ao se cadastrar:", errorCode, errorMessage);
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
+            await AsyncStorage.setItem(`userCart:${userCredential.user.uid}`, JSON.stringify([]));
+            const docRef = await addDoc(collection(db, "User"), {
+                Email: data.email,
+                Name: data.userName,
+                Password: data.password
             });
-    }
+            console.log(`Documento criado com sucesso ${docRef.id}`);
+            navigation.navigate("Login")
+        } catch (error) {
+            console.error("Erro:", error.code, error.message);
+        }
+    };
+
 
     return (
         <SafeAreaProvider style={styles.mainContainer}>

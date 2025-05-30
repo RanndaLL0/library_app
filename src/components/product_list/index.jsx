@@ -1,6 +1,5 @@
 import { ScrollView, Text, View } from "react-native";
 
-import { Book } from "lucide-react-native";
 import BookCard from "../book_card";
 import { styles } from "./styles";
 

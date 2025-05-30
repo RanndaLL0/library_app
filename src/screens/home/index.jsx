@@ -2,8 +2,8 @@ import { ScrollView, StyleSheet, Text } from "react-native";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../../auth/auth_context";
-import BookCard from "../../components/book_card";
 import BottomSheet from "../../components/bottom_sheet";
 import CategoriesList from "../../components/categories_list";
 import ModalBookCard from "../../components/modal_card";
@@ -18,8 +18,25 @@ export default function Home({ navigation }) {
     const [books, setBooks] = useState([]);
     const { user } = useContext(AuthContext)
 
-    const handleOpenModal = useCallback(() => {
-        console.log("Modal aberto");
+    const handleOpenModal = useCallback(async (book) => {
+        try {
+            const cart = await AsyncStorage.getItem(`userCart:${user}`)
+            let userCart = JSON.parse(cart);
+            
+            for (let i = 0; i < userCart.length; i++) {
+                if (userCart[i].Name === book.Name)
+                {
+                    bottomSheetModalRef.current?.present(); 
+                    return 
+                }
+            }
+
+            book.AmountOnCart = 1;
+            userCart.push(book)
+            await AsyncStorage.setItem(`userCart:${user}`, JSON.stringify(userCart))
+        } catch (error) {
+            console.error(`erro ao adicionar item no carrinho: ${error}`)
+        }
         bottomSheetModalRef.current?.present();
     }, []);
 
@@ -48,13 +65,13 @@ export default function Home({ navigation }) {
             <ScrollView nestedScrollEnabled={true} style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
                 <RectCard />
                 <CategoriesList navigation={navigation} books={books}/>
-                <ProductList 
+                <ProductList
                     handleOpenModal={handleOpenModal}
                     navigation={navigation} 
                     horizontal={true} 
-                    title={"Recommended"} 
+                    title={"Recommended"}
                     books={books} />
-                <ProductList 
+                <ProductList
                     handleOpenModal={handleOpenModal}
                     navigation={navigation} 
                     horizontal={false} 

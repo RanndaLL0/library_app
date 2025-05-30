@@ -51,8 +51,13 @@ export const styles = StyleSheet.create({
         marginLeft: 6
     },
     listStyle: {
+        borderWidth: 1,
+        borderColor: '#363636',
+        borderRadius: 12,
         marginTop: 20,
-        height: 350,
-        padding: 5
+        height: 400,
+        padding: 8,
+        paddingTop: 10,
+        marginBottom: 30
     }
 })

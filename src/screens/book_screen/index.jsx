@@ -49,7 +49,7 @@ export default function BookScreen({route}) {
             <View style={styles.infoContainer}>
 
                 <View style={styles.titleContainer}>
-                    <Text style={styles.title}>{book.Name}</Text>
+                    <Text style={styles.title} numberOfLines={2}>{book.Name}</Text>
                     <Text style={styles.priceTag}>${book.Price}</Text>
                 </View>
 

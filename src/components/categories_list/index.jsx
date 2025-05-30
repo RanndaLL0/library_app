@@ -13,7 +13,7 @@ export default function CategoriesList({navigation, books}) {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
             >
-                <CategoriesCards books={books} navigation={navigation} title={"Sci-fy"} img={(<FlaskConical color={"#393939"} width={39} height={39}/>)} />
+                <CategoriesCards books={books} navigation={navigation} title={"Sci-Fy"} img={(<FlaskConical color={"#393939"} width={39} height={39}/>)} />
                 <CategoriesCards books={books} navigation={navigation} title={"Romance"} img={(<BookHeart  color={"#393939"} width={39} height={39}/>)} />
                 <CategoriesCards books={books} navigation={navigation} title={"Drama"} img={(<Drama color={"#393939"} width={39} height={39}/>)} />
                 <CategoriesCards books={books} navigation={navigation} title={"Novel"} img={(<BookHeart color={"#393939"} width={39} height={39}/>)} />

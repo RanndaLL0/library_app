@@ -15,32 +15,40 @@ import { useContext } from "react"
 
 export default function Categories({ navigation, route }) {
 
-    const { screenTitle, books } = route.params;
+    const { screenTitle } = route.params;
     const [filter, setFilter] = useState("");
     const bottomSheetModalRef = useRef(null);
     const { user } = useContext(AuthContext);
-    const [bookList,setBookList] = useState();
+    const [filterBooks,setFilterBooks] = useState([]);
+    const [bookList,setBookList] = useState([]);
 
     const handleBooks = async () => {
         try {
-            const query = query(collection(db, 'Books'), where('Categories', "array-contains", screenTitle))
-            const querySnapshot = await getDocs(query)
+            const booksQuery = query(collection(db, 'Books'), where('Categories', "array-contains", screenTitle))
+            const querySnapshot = await getDocs(booksQuery)
+            setBookList(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 
         } catch(error) {
             console.error("Erro ao consultar livros: " + error)
         }
     }
 
-    useEffect(() => {
-        if (user) {
-            handleBooks()
-        }
-    }, [])
-
     const handleOpenModal = useCallback(() => {
         console.log("Modal aberto");
         bottomSheetModalRef.current?.present();
     }, []);
+
+    useEffect(() => {
+        if (user) {
+            handleBooks()
+        }
+    }, [screenTitle])
+
+
+    useEffect(() => {
+        const filterApply = bookList.filter(book => ( book.Name.includes(filter)))
+        setFilterBooks(filterApply)
+    },[filter,bookList])
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "#161616" }}>
@@ -62,7 +70,7 @@ export default function Categories({ navigation, route }) {
             <ScrollView style={styles.containerStyle}
                 contentContainerStyle={{ gap: 10 }}
                 showsVerticalScrollIndicator={false}>
-                {books.map((book) => {
+                {filterBooks.map((book) => {
                     return (
                         <BookCard
                             book={book}
