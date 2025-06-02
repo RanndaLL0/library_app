@@ -65,20 +65,6 @@ GitHub+2GitHub+2GitHub+2
 
     Adição e remoção de livros da biblioteca pessoal.
 
-    Integração com Firestore para armazenamento em tempo real.
-
-    Interface amigável e responsiva para dispositivos móveis.
-
-📷 Capturas de Tela
-
 ![Untitled](https://github.com/user-attachments/assets/ebb0048f-18d5-41d6-9543-47ac19b7c169)
 ![Untitled](https://github.com/user-attachments/assets/bc61fef1-1d87-47b7-821c-0182ceab28e1)
 ![Untitled](https://github.com/user-attachments/assets/82676d0c-d033-4403-b553-0a8892b6f361)
-
-
-
-
-Adicione aqui imagens do aplicativo em funcionamento.
-📝 Contribuição
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
