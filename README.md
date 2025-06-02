@@ -1,6 +1,6 @@
 📚 Library App
 
-Aplicativo de biblioteca desenvolvido em React Native, com integração ao Firebase para autenticação e armazenamento de dados. Permite aos usuários visualizar, adicionar e gerenciar livros de forma prática e intuitiva.
+Aplicativo de biblioteca desenvolvido em React Native, com integração ao Firebase para autenticação e armazenamento de dados. Permite aos usuários visualizar, adicionar e gerenciar livros.
 🚀 Tecnologias Utilizadas
 
     React Native
@@ -11,13 +11,9 @@ Aplicativo de biblioteca desenvolvido em React Native, com integração ao Fireb
 
     Expo
 
-    Kotlin (para integrações nativas no Android)
-    GitHub
-
 📁 Estrutura do Projeto
 
 library_app/
-├── android/                 # Configurações específicas para Android
 ├── assets/                  # Recursos estáticos (imagens, fontes, etc.)
 ├── src/                     # Código-fonte principal do aplicativo
 │   ├── components/          # Componentes reutilizáveis
@@ -74,6 +70,13 @@ GitHub+2GitHub+2GitHub+2
     Interface amigável e responsiva para dispositivos móveis.
 
 📷 Capturas de Tela
+
+![Untitled](https://github.com/user-attachments/assets/ebb0048f-18d5-41d6-9543-47ac19b7c169)
+![Untitled](https://github.com/user-attachments/assets/bc61fef1-1d87-47b7-821c-0182ceab28e1)
+![Untitled](https://github.com/user-attachments/assets/82676d0c-d033-4403-b553-0a8892b6f361)
+
+
+
 
 Adicione aqui imagens do aplicativo em funcionamento.
 📝 Contribuição
