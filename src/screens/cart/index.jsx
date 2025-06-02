@@ -9,7 +9,8 @@ import { ScrollView } from "react-native";
 import { styles } from "./styles";
 
 export default function Cart({ navigation }) {
-    const [cartItems,setCartItems] = useState([])
+    const [cartItems, setCartItems] = useState([])
+    const [totalPrice, setTotalPrice] = useState([])
 
     const {
         user
@@ -17,25 +18,36 @@ export default function Cart({ navigation }) {
 
     const handleGetCart = async () => {
         try {
-            const cartList = await AsyncStorage.getItem(`userCart:${user}`)
-            setCartItems(JSON.parse(cartList))
+            const cartList = await AsyncStorage.getItem(`userCart:${user}`);
+            const parsedCart = JSON.parse(cartList) || [];
+            setCartItems(parsedCart);
+
+            let price = 0;
+            parsedCart.forEach(book => {
+                price += book.Price * book.AmountOnCart;
+            });
+            setTotalPrice(price);
         } catch (error) {
-            console.error("erro ao consultar carrinho", error.code, error.message)
+            console.error("erro ao consultar carrinho", error.code, error.message);
         }
     }
 
+    const handleBookRemove = (removedBook) => {
+        setCartItems(prev => prev.filter(book => book.Name !== removedBook.Name));
+    };
+
     useEffect(() => {
         handleGetCart()
-    },[])
+    }, [cartItems])
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>My Cart</Text>
             <View style={styles.listContainer}>
-                <ScrollView contentContainerStyle={{gap: 10}}>
+                <ScrollView contentContainerStyle={{ gap: 10 }}>
                     {
                         cartItems.map((book) => (
-                            <ModalItem navigation={navigation}/>
+                            <ModalItem book={book} navigation={navigation} />
                         ))
                     }
                 </ScrollView>
@@ -43,9 +55,9 @@ export default function Cart({ navigation }) {
             <View style={styles.optionsContainer}>
                 <View style={styles.titleOptionsContainer}>
                     <Text style={styles.optionsText}>Total</Text>
-                    <Text style={styles.priceTag}>$729.96</Text>
+                    <Text style={styles.priceTag}>${totalPrice}</Text>
                 </View>
-                <CheckoutButton/>
+                <CheckoutButton onItemRemoved={handleBookRemove}/>
             </View>
         </View>
     )

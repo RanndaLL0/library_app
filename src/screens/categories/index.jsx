@@ -12,6 +12,7 @@ import { View } from "react-native"
 import { db } from "../../../firebase"
 import { styles } from "./styles"
 import { useContext } from "react"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export default function Categories({ navigation, route }) {
 
@@ -19,8 +20,8 @@ export default function Categories({ navigation, route }) {
     const [filter, setFilter] = useState("");
     const bottomSheetModalRef = useRef(null);
     const { user } = useContext(AuthContext);
-    const [filterBooks,setFilterBooks] = useState([]);
-    const [bookList,setBookList] = useState([]);
+    const [filterBooks, setFilterBooks] = useState([]);
+    const [bookList, setBookList] = useState([]);
 
     const handleBooks = async () => {
         try {
@@ -28,13 +29,29 @@ export default function Categories({ navigation, route }) {
             const querySnapshot = await getDocs(booksQuery)
             setBookList(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 
-        } catch(error) {
+        } catch (error) {
             console.error("Erro ao consultar livros: " + error)
         }
     }
 
-    const handleOpenModal = useCallback(() => {
-        console.log("Modal aberto");
+    const handleOpenModal = useCallback(async (book) => {
+        try {
+            const cart = await AsyncStorage.getItem(`userCart:${user}`)
+            let userCart = JSON.parse(cart);
+
+            for (let i = 0; i < userCart.length; i++) {
+                if (userCart[i].Name === book.Name) {
+                    bottomSheetModalRef.current?.present();
+                    return
+                }
+            }
+
+            book.AmountOnCart = 1;
+            userCart.push(book)
+            await AsyncStorage.setItem(`userCart:${user}`, JSON.stringify(userCart))
+        } catch (error) {
+            console.error(`erro ao adicionar item no carrinho: ${error}`)
+        }
         bottomSheetModalRef.current?.present();
     }, []);
 
@@ -46,9 +63,9 @@ export default function Categories({ navigation, route }) {
 
 
     useEffect(() => {
-        const filterApply = bookList.filter(book => ( book.Name.includes(filter)))
+        const filterApply = bookList.filter(book => (book.Name.includes(filter)))
         setFilterBooks(filterApply)
-    },[filter,bookList])
+    }, [filter, bookList])
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "#161616" }}>

@@ -1,10 +1,11 @@
 import { Pressable, StyleSheet, Text } from "react-native";
-
 import { styles } from "./styles";
-export default function RectCard() {
+
+
+export default function RectCard( {books,navigation,title} ) {
     return (
-        <Pressable style={styles.cardContainer}>
-            <Text style={styles.title}>Classic Nowels</Text>
+        <Pressable onPress={() => navigation.navigate("Categories", {screenTitle : title, books: books})} style={styles.cardContainer}>
+            <Text style={styles.title}>Classic Novels</Text>
             <Text style={styles.subTitle}>Promotion</Text>
         </Pressable>
     )

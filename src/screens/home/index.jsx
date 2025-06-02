@@ -63,7 +63,7 @@ export default function Home({ navigation }) {
         <SafeAreaView style={styles.container}>
 
             <ScrollView nestedScrollEnabled={true} style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-                <RectCard />
+                <RectCard books={books} navigation={navigation} title={"Novel"} />
                 <CategoriesList navigation={navigation} books={books}/>
                 <ProductList
                     handleOpenModal={handleOpenModal}

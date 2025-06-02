@@ -10,13 +10,20 @@ import FavoriteModal from "../../components/favorite_modal";
 import ModalBookCard from "../../components/modal_card";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Star } from "lucide-react-native"
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthContext } from "../../auth/auth_context";
+import { useContext } from "react";
 
-export default function BookScreen({route}) {
+export default function BookScreen({ route }) {
 
-    const [ favoriteModal,setFavoriteModal ] = useState(false);
+    const [favoriteModal, setFavoriteModal] = useState(false);
     const bottomSheetModalRef = useRef(null);
     const navigation = useNavigation();
-    const  { book } = route.params;
+    const { book } = route.params;
+
+    const {
+        user
+    } = useContext(AuthContext)
 
     const handleHeartPress = () => {
         setFavoriteModal(true);
@@ -24,11 +31,27 @@ export default function BookScreen({route}) {
     }
 
     useEffect(() => {
-        navigation.setParams({onHeartPress: handleHeartPress})
-    },[])
+        navigation.setParams({ onHeartPress: handleHeartPress })
+    }, [])
 
-    const handleOpenModal = useCallback(() => {
-        console.log("Modal aberto");
+    const handleOpenModal = useCallback(async () => {
+        try {
+            const cart = await AsyncStorage.getItem(`userCart:${user}`)
+            let userCart = JSON.parse(cart);
+
+            for (let i = 0; i < userCart.length; i++) {
+                if (userCart[i].Name === book.Name) {
+                    bottomSheetModalRef.current?.present();
+                    return
+                }
+            }
+
+            book.AmountOnCart = 1;
+            userCart.push(book)
+            await AsyncStorage.setItem(`userCart:${user}`, JSON.stringify(userCart))
+        } catch (error) {
+            console.error(`erro ao adicionar item no carrinho: ${error}`)
+        }
         bottomSheetModalRef.current?.present();
     }, []);
 
@@ -62,9 +85,9 @@ export default function BookScreen({route}) {
                 <View style={styles.tagContainer}>
                     {
                         book.Categories.map((tag) => {
-                         return (
-                            <CategorieTag tagName={tag} size={'medium'} />
-                         )   
+                            return (
+                                <CategorieTag tagName={tag} size={'medium'} />
+                            )
                         })
                     }
                 </View>
@@ -88,7 +111,7 @@ export default function BookScreen({route}) {
             <BottomSheet modalRefence={bottomSheetModalRef}>
                 <ModalBookCard />
             </BottomSheet>
-            { favoriteModal && <FavoriteModal modalState={favoriteModal} setModalState={setFavoriteModal}/> }
+            {favoriteModal && <FavoriteModal modalState={favoriteModal} setModalState={setFavoriteModal} />}
         </SafeAreaView>
     )
 }

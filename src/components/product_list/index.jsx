@@ -8,7 +8,6 @@ export default function ProductList({handleOpenModal,navigation,horizontal,title
         <View style={styles.container}>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>{title}</Text>
-                <Text style={styles.showAll}>Show All</Text>
             </View>
 
             <ScrollView 

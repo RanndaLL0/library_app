@@ -9,37 +9,45 @@ import ModalItem from "../modal_item";
 import { styles } from "./styles";
 
 export default function ModalBookCard() {
-    const [cartItems,setCartItems] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
 
     const {
         user
     } = useContext(AuthContext)
 
-    const handleCartList = async() => {
+    const handleCartList = async () => {
         const cartList = await AsyncStorage.getItem(`userCart:${user}`)
         setCartItems(JSON.parse(cartList))
     }
 
+    const handleBookRemove = (removedBook) => {
+        setCartItems(prev => prev.filter(book => book.Name !== removedBook.Name));
+    };
+
     useEffect(() => {
         handleCartList()
-    },[])
+    }, [])
 
     return (
         <View style={styles.container}>
             <View>
                 <Text style={styles.modalTitle}>Your Cart</Text>
-                <BottomSheetScrollView 
+                <BottomSheetScrollView
                     style={styles.listStyle}
                     showsVerticalScrollIndicator={false}
                     nestedScrollEnabled={true}
                     contentContainerStyle={{ gap: 10 }}>
-                        {
-                            cartItems.map((book) => (
-                                <ModalItem book={book}/>
-                            ))
-                        }
+                    {
+                        cartItems.map((book) => (
+                            <ModalItem
+                                key={book.Name}
+                                onItemRemoved={handleBookRemove}
+                                book={book}
+                            />
+                        ))
+                    }
                 </BottomSheetScrollView>
-                <CheckoutButton/>
+                <CheckoutButton onItemRemoved={handleBookRemove}/>
             </View>
         </View>
     );
