@@ -20,6 +20,7 @@ export default function ProductList({handleOpenModal,navigation,horizontal,title
                     books.map((book) => {
                         return (
                             <BookCard
+                                key={book.id}
                                 book={book}
                                 height={180}
                                 width={110}

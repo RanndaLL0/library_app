@@ -62,16 +62,6 @@ export default function DrawerNavigation() {
                     <Drawer.Section style={{ marginTop: 12 }}>
 
                         <Drawer.Item
-                            style={{ backgroundColor: "#161616" }}
-                            icon={() => <Settings color="white" size={28} />}
-                            label={<Text style={{ color: '#A9A9A9' }}>Settings</Text>}
-                            active={active === "Settings"}
-                            onPress={() => {
-                                setActive("Settings");
-                            }}
-                        />
-
-                        <Drawer.Item
                             style={{ backgroundColor: 'rgba(61, 61, 61, 0.3)' }}
                             icon={() => <LogOut color={"white"} size={28} />}
                             label={ <Text style={{ color: '#A9A9A9' }}>Logout</Text>}

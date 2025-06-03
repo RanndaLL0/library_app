@@ -1,4 +1,4 @@
-import { ScrollView, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { useContext, useEffect, useState } from "react";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -40,7 +40,7 @@ export default function ModalBookCard() {
                     {
                         cartItems.map((book) => (
                             <ModalItem
-                                key={book.Name}
+                                key={book.id}
                                 onItemRemoved={handleBookRemove}
                                 book={book}
                             />

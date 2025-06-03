@@ -1,22 +1,24 @@
+import { Button, Modal, PaperProvider, Portal } from 'react-native-paper';
 import { Text, TouchableHighlight } from "react-native";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { styles } from "./styles";
-import { AuthContext } from "../../auth/auth_context";
 import { useContext, useState } from "react";
-import { db } from "../../../firebase";
-import { Modal, Portal, Button, PaperProvider } from 'react-native-paper';
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthContext } from "../../auth/auth_context";
 import ModalCheckout from "../modal_checkout";
+import { db } from "../../../firebase";
+import { styles } from "./styles";
 
 export default function CheckoutButton({ onItemRemoved }) {
     const { user } = useContext(AuthContext);
     const [visible, setVisible] = useState(false);
-
-    const showModal = () => {
-        setVisible(true);
+    
+    const openModal = () => {
+        setVisible(true)
     }
+
     const hideModal = () => {
-        setVisible(false);
+        setVisible(false)
     }
 
     const handleCheckout = async () => {
@@ -46,6 +48,7 @@ export default function CheckoutButton({ onItemRemoved }) {
             }
 
             await AsyncStorage.setItem(`userCart:${user}`, JSON.stringify([]));
+            openModal()
         } catch (error) {
             console.error(error);
         }
@@ -56,7 +59,12 @@ export default function CheckoutButton({ onItemRemoved }) {
             <TouchableHighlight onPress={() => handleCheckout()} style={styles.buttonContainer}>
                 <Text style={styles.buttonText}>Checkout</Text>
             </TouchableHighlight>
-            <ModalCheckout></ModalCheckout>
+            <ModalCheckout
+                isVisible={visible}
+                setIsVisible={hideModal}
+            />
         </>
     )
 }
+
+{/* <ModalCheckout></ModalCheckout> */}

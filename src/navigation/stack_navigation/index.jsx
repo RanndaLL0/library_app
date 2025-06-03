@@ -25,7 +25,7 @@ export default function AppNavigation() {
                         backgroundColor: "#161616",
                     },
                     headerLeft: () =>
-                        <Pressable onPress={() => navigation.navigate("Drawer")}>
+                        <Pressable onPress={() => navigation.replace("Drawer")}>
                             <ChevronLeft color="white" size={32} />
                         </Pressable>
                 })}

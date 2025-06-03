@@ -1,6 +1,7 @@
 import { collection, getDocs, query, where } from "firebase/firestore"
 import { useCallback, useEffect, useRef, useState } from "react"
 
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { AuthContext } from "../../auth/auth_context"
 import BookCard from "../../components/book_card"
 import BottomSheet from "../../components/bottom_sheet"
@@ -12,7 +13,6 @@ import { View } from "react-native"
 import { db } from "../../../firebase"
 import { styles } from "./styles"
 import { useContext } from "react"
-import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export default function Categories({ navigation, route }) {
 
@@ -90,6 +90,7 @@ export default function Categories({ navigation, route }) {
                 {filterBooks.map((book) => {
                     return (
                         <BookCard
+                            key={book.id}
                             book={book}
                             height={180}
                             width={110}
