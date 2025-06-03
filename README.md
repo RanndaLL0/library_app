@@ -4,13 +4,13 @@ Aplicativo de biblioteca desenvolvido em React Native, com integração ao Fireb
 
 # 🚀 Tecnologias Utilizadas
 
-    ### React Native
+    React Native
 
-    ### Firebase Authentication
+    Firebase Authentication
 
-    ### Firebase Firestore
+    Firebase Firestore
 
-    ### Expo
+    Expo
 
 # 📁 Estrutura do Projeto
 
@@ -28,14 +28,14 @@ library_app/
 
 # ⚙️ Instalação e Execução
 
-    ## Clone o repositório:
+    Clone o repositório:
 
-        ### git clone https://github.com/RanndaLL0/library_app.git
-        ### cd library_app
+        git clone https://github.com/RanndaLL0/library_app.git
+        cd library_app
 
-    ## Instale as dependências:
+    Instale as dependências:
 
-        ###npm install
+        npm install
 
 # Configure o Firebase:
 
@@ -49,12 +49,12 @@ library_app/
 
 # Execute o aplicativo:
 
-    ## Com o Expo CLI:
+    Com o Expo CLI:
 
-        ### npx expo start
+        npx expo start
 
-    ## React Native CLI:
-        ### npx react-native run-android
+    React Native CLI:
+        npx react-native run-android
 
 # 🧩 Funcionalidades
 
