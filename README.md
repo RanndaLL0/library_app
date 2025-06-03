@@ -27,6 +27,7 @@ library_app/
 ├── package.json             # Dependências e scripts do projeto
 ├── .gitignore               # Arquivos ignorados pelo Git
 └── README.md                # Documentação do projeto
+```
 
 ## ⚙️ Instalação e Execução
 
