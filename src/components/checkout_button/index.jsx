@@ -1,4 +1,3 @@
-import { Button, Modal, PaperProvider, Portal } from 'react-native-paper';
 import { Text, TouchableHighlight } from "react-native";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useContext, useState } from "react";

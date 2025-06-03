@@ -1,11 +1,11 @@
 import { ImageBackground, Pressable, Text, View } from 'react-native';
 import { Minus, Plus } from 'lucide-react-native'
+import { useContext, useEffect, useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../../auth/auth_context';
 import CategorieTag from '../categorie_tag';
 import { styles } from './styles';
-import { useContext, useEffect, useState } from 'react';
 
 export default function ModalItem({ navigation, book,onItemRemoved }) {
 
@@ -84,8 +84,8 @@ export default function ModalItem({ navigation, book,onItemRemoved }) {
                     <Text style={styles.bookTitle} numberOfLines={1}>{book.Name}</Text>
                     <View style={{ flexDirection: "row", gap: 10 }}>
                         {
-                            book.Categories.map((categorie) => (
-                                <CategorieTag size={'small'} tagName={categorie} />
+                            book.Categories.map((categorie,index) => (
+                                <CategorieTag key={index} size={'small'} tagName={categorie} />
                             ))
                         }
                     </View>

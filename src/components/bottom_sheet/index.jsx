@@ -17,8 +17,8 @@ export default function BottomSheet({ children, modalRefence }) {
             index={0} 
             snapPoints={snapPoints}
             handleComponent={() => (
-                <View style={{backgroundColor: "#161616", height: 30, borderBottomWidth: 1, borderColor: '#444444', alignItems: "center",justifyContent: "center"}}>
-                    <View style={{borderWidth: 1,borderColor: 'white',backgroundColor: 'white', padding: 2, paddingRight:20, paddingLeft:20 , borderRadius: 20}}></View>
+                <View style={styles.dragBar}>
+                    <View style={styles.dragItem}></View>
                 </View>
             )}>
             <BottomSheetScrollView  contentContainerStyle={styles.modalContainer}>

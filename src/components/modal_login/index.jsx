@@ -1,7 +1,6 @@
 import { Modal, Text as PaperText, Portal } from 'react-native-paper';
 
 import { UserRoundX } from 'lucide-react-native';
-import styles from './styles';
 
 export default function ModalLogin({ visible, setVisible }) {
     return (

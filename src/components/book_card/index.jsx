@@ -28,9 +28,9 @@ export default function BookCard({ title, price, modalRef, ...props }) {
                         props.aside &&
                         <View style={{ flex: 1, flexDirection: 'row', gap: 5, flexWrap: 'wrap' }}>
                             {
-                                props.book.Categories.map((categorie) => {
+                                props.book.Categories.map((categorie,index) => {
                                     return (
-                                        <CategorieTag size={'small'} tagName={categorie}/>
+                                        <CategorieTag key={index} size={'small'} tagName={categorie}/>
                                     )
                                 })
                             }

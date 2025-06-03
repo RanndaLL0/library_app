@@ -1,4 +1,4 @@
-import { Modal, PaperProvider, Text as PaperText, Portal } from 'react-native-paper';
+import { Modal, Portal } from 'react-native-paper';
 
 import { BookUp } from 'lucide-react-native';
 import { Text } from 'react-native';

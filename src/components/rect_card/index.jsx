@@ -1,6 +1,6 @@
-import { Pressable, StyleSheet, Text } from "react-native";
-import { styles } from "./styles";
+import { Pressable, Text } from "react-native";
 
+import { styles } from "./styles";
 
 export default function RectCard( {books,navigation,title} ) {
     return (

@@ -1,22 +1,20 @@
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useCallback, useEffect, useRef } from "react";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthContext } from "../../auth/auth_context";
 import BottomSheet from "../../components/bottom_sheet";
 import BuyButton from "../../components/buy_now";
 import CartButton from "../../components/cart_button";
 import CategorieTag from "../../components/categorie_tag";
-import FavoriteModal from "../../components/favorite_modal";
 import ModalBookCard from "../../components/modal_card";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Star } from "lucide-react-native"
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AuthContext } from "../../auth/auth_context";
 import { useContext } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 export default function BookScreen({ route }) {
 
-    const [favoriteModal, setFavoriteModal] = useState(false);
     const bottomSheetModalRef = useRef(null);
     const navigation = useNavigation();
     const { book } = route.params;
@@ -84,9 +82,9 @@ export default function BookScreen({ route }) {
 
                 <View style={styles.tagContainer}>
                     {
-                        book.Categories.map((tag) => {
+                        book.Categories.map((tag,index) => {
                             return (
-                                <CategorieTag tagName={tag} size={'medium'} />
+                                <CategorieTag key={index} tagName={tag} size={'medium'} />
                             )
                         })
                     }
@@ -105,13 +103,12 @@ export default function BookScreen({ route }) {
                 </View>
 
                 <View style={{ flex: 0.65 }}>
-                    <BuyButton />
+                    <BuyButton book={book}/>
                 </View>
             </View>
             <BottomSheet modalRefence={bottomSheetModalRef}>
                 <ModalBookCard />
             </BottomSheet>
-            {favoriteModal && <FavoriteModal modalState={favoriteModal} setModalState={setFavoriteModal} />}
         </SafeAreaView>
     )
 }

@@ -1,4 +1,4 @@
-import { AlignLeft, Heart, House, LogOut, Settings, ShoppingCart } from 'lucide-react-native';
+import { AlignLeft, House, LogOut, ShoppingCart } from 'lucide-react-native';
 import { Pressable, Text, View } from 'react-native';
 
 import Cart from '../../screens/cart';
@@ -6,13 +6,11 @@ import Categories from "../../screens/categories";
 import { Drawer } from "react-native-paper"
 import Home from "../../screens/home";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 
 export default function DrawerNavigation() {
 
     const RNDrawer = createDrawerNavigator();
-    const navigation = useNavigation();
     const [active, setActive] = useState("Home");
 
     return (
@@ -49,9 +47,7 @@ export default function DrawerNavigation() {
                             icon={() => <ShoppingCart color={"white"} size={28} />}
                             active={active === "Cart"}
                             label={
-                                <Pressable>
-                                    <Text style={{ color: '#A9A9A9' }}>Cart</Text>
-                                </Pressable>
+                                <Text style={{ color: '#A9A9A9' }}>Cart</Text>
                             }
                             onPress={() => {
                                 setActive("Cart");

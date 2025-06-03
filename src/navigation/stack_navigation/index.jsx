@@ -1,6 +1,5 @@
-import { ChevronLeft, HeartPlus } from "lucide-react-native";
-
 import BookScreen from "../../screens/book_screen";
+import { ChevronLeft } from "lucide-react-native";
 import DrawerNavigation from "../drawer_navigation";
 import Login from "../../screens/login";
 import { Pressable } from "react-native";
