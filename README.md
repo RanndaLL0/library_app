@@ -18,10 +18,10 @@ Aplicativo de biblioteca desenvolvido em React Native, com integração ao Fireb
 library_app/
 ├── assets/                  # Recursos estáticos (imagens, fontes, etc.)
 ├── src/                     # Código-fonte principal do aplicativo
+│   ├── auth/                # Serviços de autenticação
 │   ├── components/          # Componentes reutilizáveis
-│   ├── screens/             # Telas do aplicativo
-│   ├── services/            # Serviços (ex: integração com Firebase)
-│   └── utils/               # Funções utilitárias
+│   ├── navigation/          # Navegação entre as telas
+│   └── screens/             # Telas do aplicativo
 ├── App.js                   # Componente raiz do aplicativo
 ├── firebase.js              # Configuração do Firebase
 ├── package.json             # Dependências e scripts do projeto
