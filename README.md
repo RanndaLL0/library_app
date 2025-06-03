@@ -2,7 +2,7 @@
 
 Aplicativo de biblioteca desenvolvido em React Native, com integração ao Firebase para autenticação e armazenamento de dados. Permite aos usuários visualizar, adicionar e gerenciar livros.
 
-# 🚀 Tecnologias Utilizadas
+## 🚀 Tecnologias Utilizadas
 
     React Native
 
@@ -12,8 +12,9 @@ Aplicativo de biblioteca desenvolvido em React Native, com integração ao Fireb
 
     Expo
 
-# 📁 Estrutura do Projeto
+## 📁 Estrutura do Projeto
 
+```plaintext
 library_app/
 ├── assets/                  # Recursos estáticos (imagens, fontes, etc.)
 ├── src/                     # Código-fonte principal do aplicativo
@@ -22,11 +23,12 @@ library_app/
 │   ├── services/            # Serviços (ex: integração com Firebase)
 │   └── utils/               # Funções utilitárias
 ├── App.js                   # Componente raiz do aplicativo
-├── firebase.jsx             # Configuração do Firebase
+├── firebase.js              # Configuração do Firebase
 ├── package.json             # Dependências e scripts do projeto
-└── ...                      # Outros arquivos de configuração
+├── .gitignore               # Arquivos ignorados pelo Git
+└── README.md                # Documentação do projeto
 
-# ⚙️ Instalação e Execução
+## ⚙️ Instalação e Execução
 
     Clone o repositório:
 
@@ -37,7 +39,7 @@ library_app/
 
         npm install
 
-# Configure o Firebase:
+ Configure o Firebase:
 
     Crie um projeto no Firebase Console.
 
@@ -47,7 +49,7 @@ library_app/
 
     Atualize o arquivo firebase.jsx com as configurações do seu projeto Firebase.
 
-# Execute o aplicativo:
+Execute o aplicativo:
 
     Com o Expo CLI:
 
@@ -56,7 +58,7 @@ library_app/
     React Native CLI:
         npx react-native run-android
 
-# 🧩 Funcionalidades
+## 🧩 Funcionalidades
 
     Autenticação de usuários com Firebase Authentication.
 
