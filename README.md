@@ -1,7 +1,8 @@
-📚 Library App
+# 📚 Library App
 
 Aplicativo de biblioteca desenvolvido em React Native, com integração ao Firebase para autenticação e armazenamento de dados. Permite aos usuários visualizar, adicionar e gerenciar livros.
-🚀 Tecnologias Utilizadas
+
+## 🚀 Tecnologias Utilizadas
 
     React Native
 
@@ -11,32 +12,35 @@ Aplicativo de biblioteca desenvolvido em React Native, com integração ao Fireb
 
     Expo
 
-📁 Estrutura do Projeto
+## 📁 Estrutura do Projeto
 
+```plaintext
 library_app/
 ├── assets/                  # Recursos estáticos (imagens, fontes, etc.)
 ├── src/                     # Código-fonte principal do aplicativo
+│   ├── auth/                # Serviços de autenticação
 │   ├── components/          # Componentes reutilizáveis
-│   ├── screens/             # Telas do aplicativo
-│   ├── services/            # Serviços (ex: integração com Firebase)
-│   └── utils/               # Funções utilitárias
+│   ├── navigation/          # Navegação entre as telas
+│   └── screens/             # Telas do aplicativo
 ├── App.js                   # Componente raiz do aplicativo
-├── firebase.jsx             # Configuração do Firebase
+├── firebase.js              # Configuração do Firebase
 ├── package.json             # Dependências e scripts do projeto
-└── ...                      # Outros arquivos de configuração
+├── .gitignore               # Arquivos ignorados pelo Git
+└── README.md                # Documentação do projeto
+```
 
-⚙️ Instalação e Execução
+## ⚙️ Instalação e Execução
 
     Clone o repositório:
 
-git clone https://github.com/RanndaLL0/library_app.git
-cd library_app
+        git clone https://github.com/RanndaLL0/library_app.git
+        cd library_app
 
-Instale as dependências:
+    Instale as dependências:
 
-npm install
+        npm install
 
-Configure o Firebase:
+ Configure o Firebase:
 
     Crie um projeto no Firebase Console.
 
@@ -50,14 +54,12 @@ Execute o aplicativo:
 
     Com o Expo CLI:
 
-npx expo start
+        npx expo start
 
-Com React Native CLI:
-GitHub+2GitHub+2GitHub+2
-
+    React Native CLI:
         npx react-native run-android
 
-🧩 Funcionalidades
+## 🧩 Funcionalidades
 
     Autenticação de usuários com Firebase Authentication.
 
